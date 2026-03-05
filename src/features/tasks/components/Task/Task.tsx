@@ -3,14 +3,15 @@ import Link from "next/link";
 
 type TaskProps = {
 	id: string;
+	name: string;
 };
 
-export function Task({ id }: TaskProps) {
+export function Task({ id, name }: TaskProps) {
 	return (
-		<article className={styles.task}>
+		<li className={styles.task}>
 			<Link href={`/tasks/${id}`}>
-				<h3>Tarefa - {id}</h3>
+				<h3>Tarefa - {name}</h3>
 			</Link>
-		</article>
+		</li>
 	);
 }
