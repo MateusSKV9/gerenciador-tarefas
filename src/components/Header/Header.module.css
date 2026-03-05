@@ -1,0 +1,40 @@
+.header {
+	width: 100%;
+	background-color: var(--foreground);
+	color: var(--text);
+	display: flex;
+	justify-content: center;
+	padding: 20px;
+}
+
+.wrapper {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	max-width: 1200px;
+}
+
+.logo {
+	font-weight: bold;
+	font-size: 1.3rem;
+}
+
+.list {
+	display: flex;
+	list-style: none;
+	gap: 24px;
+}
+
+.link {
+	padding: 8px;
+	transition: all 0.15s ease;
+	font-size: 1.05rem;
+  font-weight: 500;
+
+	&:hover {
+		background-color: var(--background);
+		color: var(--foreground);
+		border-radius: 4px;
+	}
+}

@@ -1,0 +1,16 @@
+.footer {
+	width: 100%;
+	background-color: var(--foreground);
+	color: var(--text);
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 4px;
+
+	padding: 4px;
+	font-size: 0.95rem;
+}
+.rights {
+	font-size: 0.9rem;
+}

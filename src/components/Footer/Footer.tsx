@@ -9,7 +9,7 @@ export function Footer() {
 					Mateus Santos
 				</a>
 			</p>
-			<span className={styles.rights}>&copy {new Date().getFullYear()} Mateus Santos</span>
+			<span className={styles.rights}>® {new Date().getFullYear()} Mateus Santos</span>
 		</footer>
 	);
 }
