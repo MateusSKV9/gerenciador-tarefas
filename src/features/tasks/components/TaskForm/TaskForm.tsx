@@ -28,12 +28,15 @@ export function TaskForm({ task }: TaskFormProps) {
 			try {
 				if (task) {
 					await updateTaskAction(task.id, data);
+					toast.success("Tarefa atualizada com sucesso!");
 				} else {
 					await createTaskAction(data);
+					toast.success("Tarefa criada com sucesso!");
 				}
 
 				router.push("/");
 			} catch (error) {
+				toast.error("Erro ao salvar tarefa! tente novamente");
 				console.error(error);
 			}
 		});
