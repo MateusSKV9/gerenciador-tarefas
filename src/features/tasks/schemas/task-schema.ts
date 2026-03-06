@@ -9,3 +9,4 @@ export const TaskSchema = z.object({
 
 export type TaskType = z.infer<typeof TaskSchema>;
 
+export const UpdateTaskSchema = TaskSchema.omit({ id: true }).partial();

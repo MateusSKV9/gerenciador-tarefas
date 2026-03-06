@@ -1,13 +1,8 @@
 "use server";
-import { TaskSchema, TaskType } from "../schemas/task-schema";
+import { revalidatePath } from "next/cache";
+import { TaskSchema, TaskType, UpdateTaskSchema } from "../schemas/task-schema";
 
 const API_URL = "https://json-server-5bev.onrender.com/tasks";
-
-export async function getTaskAction(id: string): Promise<TaskType> {
-	const response = await fetch(`${API_URL}/${id}`, { cache: "no-store" });
-	if (!response.ok) throw new Error("Erro ao buscar tarefa");
-	return response.json();
-}
 
 export async function createTaskAction(data: unknown): Promise<TaskType> {
 	const parsed = TaskSchema.parse(data);
@@ -18,22 +13,30 @@ export async function createTaskAction(data: unknown): Promise<TaskType> {
 		body: JSON.stringify(parsed),
 	});
 	if (!response.ok) throw new Error("Erro ao criar tarefa");
+
 	return response.json();
 }
 
 export async function deleteTaskAction(id: string): Promise<void> {
 	const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
 	if (!response.ok) throw new Error("Erro ao deletar tarefa");
+
+	revalidatePath("/");
 }
 
-export async function updateTaskAction(id: string, data: Partial<TaskType>): Promise<TaskType> {
+export async function updateTaskAction(id: string, data: unknown): Promise<void> {
+	const dataToUpdate = UpdateTaskSchema.parse(data);
+
 	const response = await fetch(`${API_URL}/${id}`, {
 		method: "PATCH",
 		headers: {
 			"Content-Type": "application/json",
 		},
-		body: JSON.stringify(data),
+		body: JSON.stringify(dataToUpdate),
 	});
 	if (!response.ok) throw new Error("Erro ao atualizar tarefa");
+
+	revalidatePath("/");
+	revalidatePath(`/tasks/edit/${id}`);
 	return response.json();
 }
