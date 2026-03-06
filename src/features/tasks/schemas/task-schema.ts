@@ -8,3 +8,4 @@ export const TaskSchema = z.object({
 });
 
 export type TaskType = z.infer<typeof TaskSchema>;
+
