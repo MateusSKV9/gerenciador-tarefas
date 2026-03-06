@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { createTaskAction, updateTaskAction } from "../../api/api-task";
 import { useTransition } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TaskSchema, TaskType } from "../../schemas/task-schema";
+import { TaskFormData, TaskSchema, TaskType } from "../../schemas/task-schema";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -21,9 +21,9 @@ export function TaskForm({ task }: TaskFormProps) {
 		register,
 		formState: { errors },
 		handleSubmit,
-	} = useForm({ resolver: zodResolver(TaskSchema), defaultValues: { title: task?.title || "" } });
+	} = useForm<TaskFormData>({ resolver: zodResolver(TaskSchema), defaultValues: { title: task?.title || "" } });
 
-	const onSubmit = (data: { title: string }) => {
+	const onSubmit = (data: TaskFormData) => {
 		startTransition(async () => {
 			try {
 				if (task) {

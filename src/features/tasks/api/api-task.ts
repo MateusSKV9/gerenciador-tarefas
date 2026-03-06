@@ -24,7 +24,7 @@ export async function deleteTaskAction(id: string): Promise<void> {
 	revalidatePath("/");
 }
 
-export async function updateTaskAction(id: string, data: unknown): Promise<void> {
+export async function updateTaskAction(id: string, data: unknown): Promise<TaskType> {
 	const dataToUpdate = UpdateTaskSchema.parse(data);
 
 	const response = await fetch(`${API_URL}/${id}`, {
