@@ -10,15 +10,25 @@
 }
 
 .intro {
-  display: flex;
-  gap: 8px;
+	display: flex;
+	gap: 8px;
 }
 
 .input {
-  width: 16px;
+	width: 16px;
+}
+
+.input,
+.label {
+	cursor: pointer;
 }
 
 .container_buttons {
 	display: flex;
 	gap: 8px;
+}
+
+.completed {
+	text-decoration: line-through;
+	opacity: 0.5;
 }

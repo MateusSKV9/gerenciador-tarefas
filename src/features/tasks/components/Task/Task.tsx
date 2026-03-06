@@ -3,8 +3,9 @@
 import { Button } from "@/components";
 import styles from "./Task.module.css";
 import { deleteTaskAction, updateTaskAction } from "../../api/api-task";
-import { useState, useTransition } from "react";
+import { useState, useTransition, useOptimistic } from "react";
 import Link from "next/link";
+import { toast } from "sonner";
 
 type TaskProps = {
 	id: string;
@@ -14,34 +15,51 @@ type TaskProps = {
 
 export function Task({ id, name, completed }: TaskProps) {
 	const [isPending, startTransition] = useTransition();
-	const [actionType, setActionType] = useState<"upadating" | "deleting" | null>(null);
+	const [actionType, setActionType] = useState<"updating" | "deleting" | null>(null);
+
+	const [optimisticCompleted, setOptimisticCompleted] = useOptimistic(
+		completed,
+		(state, newValue: boolean) => newValue
+	);
+
+	const handleToggle = () => {
+		setActionType("updating");
+		const nextValue = !optimisticCompleted;
+
+		startTransition(async () => {
+			setOptimisticCompleted(nextValue);
+			const result = await updateTaskAction(id, { completed: nextValue });
+
+			if (!result.success) {
+				toast.error(result.error);
+			}
+
+			setActionType(null);
+		});
+	};
 
 	return (
-		<li className={styles.task}>
+		<li className={`${styles.task} ${isPending ? styles.pending : ""}`}>
 			<div className={styles.intro}>
 				<input
-					onChange={() => {
-						setActionType("upadating");
-						startTransition(async () => {
-							await updateTaskAction(id, { completed: !completed });
-							setActionType(null);
-						});
-					}}
+					onChange={handleToggle}
 					className={styles.input}
 					type="checkbox"
 					name={id}
 					id={id}
 					title="Concluir"
-					checked={completed}
+					checked={optimisticCompleted}
 					disabled={isPending}
 				/>
 
-				<label htmlFor={id}>{name}</label>
+				<label className={`${styles.label} ${optimisticCompleted && styles.completed}`} htmlFor={id}>
+					{name}
+				</label>
 			</div>
 
 			<div className={styles.container_buttons}>
 				<Link href={`/tasks/edit/${id}`}>
-					<Button variant="default">{isPending && actionType === "upadating" ? "Editando" : "Editar"}</Button>
+					<Button variant="default">{isPending && actionType === "updating" ? "Salvando..." : "Editar"}</Button>
 				</Link>
 
 				<Button
@@ -50,12 +68,12 @@ export function Task({ id, name, completed }: TaskProps) {
 						setActionType("deleting");
 						startTransition(async () => {
 							await deleteTaskAction(id);
-							setActionType(null);
+							// Não precisamos resetar actionType aqui pois o componente será removido do DOM
 						});
 					}}
 					variant="danger"
 				>
-					{isPending && actionType === "deleting" ? "Deletando" : "Deletar"}
+					{isPending && actionType === "deleting" ? "Deletando..." : "Deletar"}
 				</Button>
 			</div>
 		</li>
