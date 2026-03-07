@@ -1,11 +1,11 @@
 "use client";
 
-import { Button } from "@/components";
 import styles from "./Task.module.css";
+import { Button } from "@/components";
 import { deleteTaskAction, updateTaskAction } from "../../api/api-task";
 import { useState, useTransition, useOptimistic } from "react";
-import Link from "next/link";
 import { toast } from "sonner";
+import Link from "next/link";
 
 type TaskProps = {
 	id: string;
@@ -22,7 +22,7 @@ export function Task({ id, name, completed }: TaskProps) {
 		(state, newValue: boolean) => newValue
 	);
 
-	const handleToggle = () => {
+	const handleToggleComplete = () => {
 		setActionType("updating");
 		const nextValue = !optimisticCompleted;
 
@@ -30,11 +30,17 @@ export function Task({ id, name, completed }: TaskProps) {
 			setOptimisticCompleted(nextValue);
 			const result = await updateTaskAction(id, { completed: nextValue });
 
-			if (!result.success) {
-				toast.error(result.error);
-			}
-
+			if (!result.success) toast.error(result.error);
 			setActionType(null);
+		});
+	};
+
+	const handleDelete = () => {
+		setActionType("deleting");
+
+		startTransition(async () => {
+			const result = await deleteTaskAction(id);
+			if (!result.success) toast.error(result.error);
 		});
 	};
 
@@ -42,14 +48,14 @@ export function Task({ id, name, completed }: TaskProps) {
 		<li className={`${styles.task} ${isPending ? styles.pending : ""}`}>
 			<div className={styles.intro}>
 				<input
-					onChange={handleToggle}
-					className={styles.input}
-					type="checkbox"
-					name={id}
 					id={id}
+					name={id}
+					type="checkbox"
 					title="Concluir"
+					onChange={handleToggleComplete}
 					checked={optimisticCompleted}
 					disabled={isPending}
+					className={styles.input}
 				/>
 
 				<label className={`${styles.label} ${optimisticCompleted && styles.completed}`} htmlFor={id}>
@@ -59,20 +65,12 @@ export function Task({ id, name, completed }: TaskProps) {
 
 			<div className={styles.container_buttons}>
 				<Link href={`/tasks/edit/${id}`}>
-					<Button variant="default">{isPending && actionType === "updating" ? "Salvando..." : "Editar"}</Button>
+					<Button variant="default" disabled={isPending}>
+						{isPending && actionType === "updating" ? "Salvando..." : "Editar"}
+					</Button>
 				</Link>
 
-				<Button
-					disabled={isPending}
-					onClick={() => {
-						setActionType("deleting");
-						startTransition(async () => {
-							await deleteTaskAction(id);
-							// Não precisamos resetar actionType aqui pois o componente será removido do DOM
-						});
-					}}
-					variant="danger"
-				>
+				<Button disabled={isPending} onClick={handleDelete} variant="danger">
 					{isPending && actionType === "deleting" ? "Deletando..." : "Deletar"}
 				</Button>
 			</div>

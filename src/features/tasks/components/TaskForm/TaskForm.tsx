@@ -1,5 +1,6 @@
 "use client";
 
+import styles from "./TaskForm.module.css";
 import { Input } from "@/components/Input/Input";
 import { useForm } from "react-hook-form";
 import { createTaskAction, updateTaskAction } from "../../api/api-task";
@@ -8,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { TaskFormData, TaskSchema, TaskType } from "../../schemas/task-schema";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { Button } from "@/components";
 
 type TaskFormProps = {
 	task?: TaskType;
@@ -25,25 +27,19 @@ export function TaskForm({ task }: TaskFormProps) {
 
 	const onSubmit = (data: TaskFormData) => {
 		startTransition(async () => {
-			try {
-				if (task) {
-					await updateTaskAction(task.id, data);
-					toast.success("Tarefa atualizada com sucesso!");
-				} else {
-					await createTaskAction(data);
-					toast.success("Tarefa criada com sucesso!");
-				}
+			const result = task ? await updateTaskAction(task.id, data) : await createTaskAction(data);
 
+			if (result.success) {
 				router.push("/");
-			} catch (error) {
-				toast.error("Erro ao salvar tarefa! tente novamente");
-				console.error(error);
+				toast.success(`Tarefa ${task ? "atualizada" : "criada"} com sucesso!`);
+			} else {
+				toast.error(result.error);
 			}
 		});
 	};
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
+		<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 			<Input
 				id="title"
 				type="text"
@@ -52,9 +48,9 @@ export function TaskForm({ task }: TaskFormProps) {
 				text="Nome"
 				{...register("title")}
 			/>
-			<button type="submit" disabled={isPending}>
-				{isPending ? "Salvando" : "Salvar"}{" "}
-			</button>
+			<Button variant="default" type="submit" disabled={isPending}>
+				{isPending ? "Salvando..." : "Salvar"}{" "}
+			</Button>
 		</form>
 	);
 }

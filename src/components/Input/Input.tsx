@@ -1,3 +1,4 @@
+import styles from "./Input.module.css";
 import React, { forwardRef } from "react";
 
 type InputProps = {
@@ -7,10 +8,12 @@ type InputProps = {
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(({ text, error, ...props }: InputProps, ref) => {
 	return (
-		<div>
-			<label htmlFor={props.id}>{text}</label>
-			<input ref={ref} {...props} />
-			{error && <span>{error}</span>}
+		<div className={styles.form_group}>
+			<label className={styles.label} htmlFor={props.id}>
+				{text}
+			</label>
+			<input className={styles.input} ref={ref} {...props} />
+			{error && <span className={styles.error}>* {error}</span>}
 		</div>
 	);
 });
