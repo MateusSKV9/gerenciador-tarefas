@@ -45,7 +45,11 @@ export function Task({ id, name, completed }: TaskProps) {
 	};
 
 	return (
-		<li className={`${styles.task} ${isPending ? styles.pending : ""}`}>
+		<li
+			className={`${styles.task} ${optimisticCompleted && styles.completed} ${
+				isPending && actionType === "deleting" && styles.pending
+			}`}
+		>
 			<div className={styles.intro}>
 				<input
 					id={id}
@@ -58,7 +62,7 @@ export function Task({ id, name, completed }: TaskProps) {
 					className={styles.input}
 				/>
 
-				<label className={`${styles.label} ${optimisticCompleted && styles.completed}`} htmlFor={id}>
+				<label className={`${styles.label} ${isPending && styles.completed}`} htmlFor={id}>
 					{name}
 				</label>
 			</div>
