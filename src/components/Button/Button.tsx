@@ -3,7 +3,9 @@ import { ComponentProps } from "react";
 
 type ButtonVariant = "default" | "primary" | "danger";
 
-type ButtonProps = ComponentProps<"button"> & { variant: ButtonVariant };
+type ButtonProps = {
+	variant: ButtonVariant;
+} & ComponentProps<"button">;
 
 export function Button({ children, variant, ...props }: ButtonProps) {
 	return (
