@@ -13,15 +13,24 @@
 
 .task.completed {
 	border-color: rgb(0, 207, 41);
+	opacity: 0.7;
 }
 
 .intro {
 	display: flex;
+	align-items:center;
 	gap: 8px;
+}
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
 }
 
 .input {
 	width: 16px;
+	height: 16px;
 }
 
 .input,
@@ -36,9 +45,4 @@
 
 .pending {
 	opacity: 0.75;
-}
-
-.task.completed .label {
-	text-decoration: line-through;
-	opacity: 0.5;
 }

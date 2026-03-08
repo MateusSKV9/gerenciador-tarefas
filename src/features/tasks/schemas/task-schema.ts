@@ -7,9 +7,9 @@ export const TaskSchema = z.object({
 	categoryId: z.string().optional(),
 });
 
-export type TaskType = z.infer<typeof TaskSchema>;
-
 export const UpdateTaskSchema = TaskSchema.omit({ id: true }).partial();
+
+export type TaskType = z.infer<typeof TaskSchema>;
 
 export type TaskFormData = {
 	title: string;

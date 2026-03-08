@@ -1,8 +1,10 @@
+import { env } from "@/env";
 import { TaskType } from "@/features/tasks";
 import { TaskForm } from "@/features/tasks/components/TaskForm/TaskForm";
+import { toast } from "sonner";
 
 async function getTask(id: string): Promise<TaskType> {
-	const response = await fetch(`https://json-server-5bev.onrender.com/tasks/${id}`, { cache: "no-store" });
+	const response = await fetch(`${env.API_URL}/tasks/${id}`, { cache: "no-store" });
 	if (!response.ok) throw new Error("Erro ao buscar tarefa");
 	return response.json();
 }
