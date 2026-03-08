@@ -9,11 +9,18 @@ async function getTask(id: string): Promise<TaskType> {
 	return response.json();
 }
 
+const getCategories = async () => {
+	const response = await fetch(`${env.API_URL}/categories`);
+	if (!response) toast.error("Erro ao buscar dados.");
+	return response.json();
+};
+
 type EditTaskPageProps = { params: Promise<{ id: string }> };
 
 export default async function EditTaskPage({ params }: EditTaskPageProps) {
 	const { id } = await params;
 	const task = await getTask(id);
+	const categories = await getCategories();
 
 	if (!task) return <p>Tarefa não encontrada.</p>;
 
@@ -21,7 +28,7 @@ export default async function EditTaskPage({ params }: EditTaskPageProps) {
 		<section>
 			<h1>Editando produto </h1>
 
-			<TaskForm task={task} />
+			<TaskForm task={task} categories={categories} />
 		</section>
 	);
 }

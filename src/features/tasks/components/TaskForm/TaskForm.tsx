@@ -9,13 +9,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { TaskFormData, TaskSchema, TaskType } from "../../schemas/task-schema";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Button } from "@/components";
+import { Button, Select } from "@/components";
+import { CategoryType } from "@/features/categories/schemas/category-schema";
 
 type TaskFormProps = {
 	task?: TaskType;
+	categories: CategoryType[];
 };
 
-export function TaskForm({ task }: TaskFormProps) {
+export function TaskForm({ task, categories }: TaskFormProps) {
 	const router = useRouter();
 	const [isPending, startTransition] = useTransition();
 
@@ -23,7 +25,10 @@ export function TaskForm({ task }: TaskFormProps) {
 		register,
 		formState: { errors },
 		handleSubmit,
-	} = useForm<TaskFormData>({ resolver: zodResolver(TaskSchema), defaultValues: { title: task?.title || "" } });
+	} = useForm<TaskFormData>({
+		resolver: zodResolver(TaskSchema),
+		defaultValues: { title: task?.title || "", categoryId: task?.categoryId || "" },
+	});
 
 	const onSubmit = (data: TaskFormData) => {
 		startTransition(async () => {
@@ -44,9 +49,16 @@ export function TaskForm({ task }: TaskFormProps) {
 				id="title"
 				type="text"
 				placeholder="Digite o título da tarefa"
-				error={errors.title?.message}
 				text="Nome"
 				{...register("title")}
+				error={errors.title?.message}
+			/>
+			<Select
+				id="categoryId"
+				text="Categoria"
+				options={categories}
+				{...register("categoryId")}
+				error={errors.categoryId?.message}
 			/>
 			<Button variant="default" type="submit" disabled={isPending}>
 				{isPending ? "Salvando..." : "Salvar"}{" "}

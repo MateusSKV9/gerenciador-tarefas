@@ -1,48 +1,70 @@
+"use client";
+
 import styles from "./TaskList.module.css";
 import { Task } from "../Task/Task";
 import { TaskType } from "../../schemas/task-schema";
 import { HeaderSection } from "@/components/HeaderSection/HeaderSection";
 import { Button } from "@/components";
 import Link from "next/link";
+import { CategoryType } from "@/features/categories/schemas/category-schema";
+import { useOptimistic } from "react";
 
 type TaskListProps = {
 	tasks: TaskType[];
+	categories: CategoryType[];
 };
 
-export function TaskList({ tasks }: TaskListProps) {
-	const sortedTasks = [...tasks].sort((a, b) => Number(a.completed) - Number(b.completed));
+type optimisticAction = { type: "UPDATE"; id: string; completed: boolean } | { type: "DELETE"; id: string };
+
+export function TaskList({ tasks, categories }: TaskListProps) {
+	const [optimisticTasks, dispatch] = useOptimistic(tasks, (state, action: optimisticAction) => {
+		switch (action.type) {
+			case "UPDATE":
+				return state.map((t) => (t.id === action.id ? { ...t, completed: action.completed } : t));
+
+			case "DELETE":
+				return state.filter((t) => t.id !== action.id);
+
+			default:
+				return state;
+		}
+	});
+
+	const tasksPending = optimisticTasks.filter((t) => !t.completed);
+	const tasksCompleted = optimisticTasks.filter((t) => t.completed);
+
+	const renderTask = (task: TaskType) => {
+		const category = categories.find((cat) => cat.id === task.categoryId);
+		return (
+			<Task
+				name={task.title}
+				key={task.id}
+				completed={task.completed}
+				id={task.id}
+				category={category?.name}
+				onToggle={(id, next) => dispatch({ type: "UPDATE", id, completed: next })}
+				onDelete={(id) => dispatch({ type: "DELETE", id })}
+			/>
+		);
+	};
 
 	return (
 		<section className={styles.container}>
 			<HeaderSection title="Tarefas">
-				<Link href="/tasks/new/">
-					<Button variant="default">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="20"
-							height="20"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-						>
-							<circle cx="12" cy="12" r="10" />
-							<path d="M8 12h8" />
-							<path d="M12 8v8" />
-						</svg>
-						Adicionar
-					</Button>
+				<Link href="/tasks/new">
+					<Button variant="default">Adicionar</Button>
 				</Link>
 			</HeaderSection>
 
-			<h2>Lista</h2>
-			<ul className={styles.list}>
-				{sortedTasks.map((task) => (
-					<Task key={task.id} id={task.id} completed={task.completed} name={task.title} />
-				))}
-			</ul>
+			<div className={styles.container_list}>
+				<h3>Pendentes ({tasksPending.length})</h3>
+				<ul className={styles.list}>{tasksPending.map(renderTask)}</ul>
+			</div>
+
+			<div className={styles.container_list}>
+				<h3>Concluídas</h3>
+				<ul className={styles.list}>{tasksCompleted.map(renderTask)}</ul>
+			</div>
 		</section>
 	);
 }

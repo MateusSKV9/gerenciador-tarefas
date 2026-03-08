@@ -16,7 +16,7 @@ const getCategories = async (): Promise<CategoryType[]> => {
 };
 
 export default async function Tasks() {
-	const tasks = await getTasks();
+	const [tasks, categories] = await Promise.all([getTasks(), getCategories()]);
 
-	return <TaskList tasks={tasks} />;
+	return <TaskList tasks={tasks} categories={categories} />;
 }
