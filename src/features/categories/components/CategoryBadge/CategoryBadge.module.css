@@ -1,0 +1,10 @@
+.category {
+	width: max-content;
+	padding: 1px 8px;
+	font-size: 0.85rem;
+	color: white;
+	display: flex;
+	justify-content: center;
+	background-color: rgb(114, 114, 114);
+	border-radius: 2px;
+}

@@ -1,7 +1,9 @@
-export function Category() {
-	return (
-		<article>
-			<h1>Categoria</h1>
-		</article>
-	);
+import styles from "./Category.module.css";
+
+type CategoryProps = {
+	name: string;
+};
+
+export function Category({ name }: CategoryProps) {
+	return <li className={styles.category}>{name}</li>;
 }

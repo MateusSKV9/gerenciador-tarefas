@@ -1,5 +1,15 @@
+import { env } from "@/env";
 import { CategoryList } from "@/features/categories";
+import { toast } from "sonner";
 
-export default function CategoriesPage() {
-	return <CategoryList />;
+const getCategories = async () => {
+	const response = await fetch(`${env.API_URL}/categories`);
+	if (!response) toast.error("Erro ao buscar dados.");
+	return response.json();
+};
+
+export default async function CategoriesPage() {
+	const categories = await getCategories();
+
+	return <CategoryList categories={categories} />;
 }
