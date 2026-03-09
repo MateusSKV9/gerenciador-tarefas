@@ -5,6 +5,7 @@ import { toast } from "sonner";
 
 async function getTasks(): Promise<TaskType[]> {
 	const response = await fetch(`${env.API_URL}/tasks`, { cache: "no-store" });
+
 	if (!response.ok) throw new Error("Erro ao buscar tarefa");
 	return response.json();
 }
