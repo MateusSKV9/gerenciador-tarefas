@@ -1,3 +1,16 @@
 .category {
+	width: 100%;
 	color: inherit;
+	background-color: var(--secondary);
+	padding: 8px;
+	border-radius: 4px;
+	border: 1px solid var(--border);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.container_buttons {
+	display: flex;
+	gap: 8px;
 }

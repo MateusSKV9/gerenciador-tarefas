@@ -9,8 +9,9 @@ export function CategoryList({ categories }: CategoryListProps) {
 	return (
 		<section>
 			<h1>Categorias</h1>
+		<section className={styles.container}>
 
-			<ul>
+			<ul className={styles.list}>
 				{categories.map((category) => (
 					<Category key={category.id} name={category.name} />
 				))}
