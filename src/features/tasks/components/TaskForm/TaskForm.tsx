@@ -27,7 +27,7 @@ export function TaskForm({ task, categories }: TaskFormProps) {
 		handleSubmit,
 	} = useForm<TaskFormData>({
 		resolver: zodResolver(TaskSchema),
-		defaultValues: { title: task?.title || "", categoryId: task?.categoryId || "" },
+		defaultValues: { title: task?.title || "", category_id: task?.category_id || "" },
 	});
 
 	const onSubmit = (data: TaskFormData) => {
@@ -54,11 +54,11 @@ export function TaskForm({ task, categories }: TaskFormProps) {
 				error={errors.title?.message}
 			/>
 			<Select
-				id="categoryId"
+				id="category_id"
 				text="Categoria"
 				options={categories}
-				{...register("categoryId")}
-				error={errors.categoryId?.message}
+				{...register("category_id")}
+				error={errors.category_id?.message}
 			/>
 			<Button variant="default" type="submit" disabled={isPending}>
 				{isPending ? "Salvando..." : "Salvar"}{" "}

@@ -9,5 +9,5 @@ export const updateCategorySchema = CategorySchema.omit({ id: true });
 
 export type CategoryType = z.infer<typeof CategorySchema>;
 
-export type CategoryForm = z.infer<typeof updateCategorySchema>;
+export type CategoryFormData = z.infer<typeof updateCategorySchema>;
 

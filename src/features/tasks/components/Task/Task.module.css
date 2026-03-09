@@ -8,17 +8,19 @@
 	justify-content: space-between;
 	align-items: center;
 
+	border: 1px solid var(--border);
+
 	border-left: 5px solid var(--foreground);
 }
 
 .task.completed {
-	border-color: rgb(0, 207, 41);
+	border-left-color: rgb(0, 207, 41);
 	opacity: 0.7;
 }
 
 .intro {
 	display: flex;
-	align-items:center;
+	align-items: center;
 	gap: 8px;
 }
 

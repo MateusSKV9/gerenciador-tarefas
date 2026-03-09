@@ -34,7 +34,7 @@ export function TaskList({ tasks, categories }: TaskListProps) {
 	const tasksCompleted = optimisticTasks.filter((t) => t.completed);
 
 	const renderTask = (task: TaskType) => {
-		const category = categories.find((cat) => cat.id === task.categoryId);
+		const category = categories.find((cat) => cat.id === task.category_id);
 		return (
 			<Task
 				name={task.title}
