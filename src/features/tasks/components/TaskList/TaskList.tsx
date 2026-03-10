@@ -8,6 +8,8 @@ import { Button } from "@/components";
 import Link from "next/link";
 import { CategoryType } from "@/features/categories/schemas/category-schema";
 import { useOptimistic } from "react";
+import { useRouter } from "next/navigation";
+import { TaskChart } from "../TaskChart/TaskChart";
 
 type TaskListProps = {
 	tasks: TaskType[];
@@ -17,6 +19,7 @@ type TaskListProps = {
 type optimisticAction = { type: "UPDATE"; id: string; completed: boolean } | { type: "DELETE"; id: string };
 
 export function TaskList({ tasks, categories }: TaskListProps) {
+	const router = useRouter();
 	const [optimisticTasks, dispatch] = useOptimistic(tasks, (state, action: optimisticAction) => {
 		switch (action.type) {
 			case "UPDATE":
@@ -33,6 +36,11 @@ export function TaskList({ tasks, categories }: TaskListProps) {
 	const tasksPending = optimisticTasks.filter((t) => !t.completed);
 	const tasksCompleted = optimisticTasks.filter((t) => t.completed);
 
+	const handleOnToggle = (id: string, next: boolean) => {
+		dispatch({ type: "UPDATE", id, completed: next });
+		router.refresh();
+	};
+
 	const renderTask = (task: TaskType) => {
 		const category = categories.find((cat) => cat.id === task.category_id);
 		return (
@@ -42,7 +50,7 @@ export function TaskList({ tasks, categories }: TaskListProps) {
 				completed={task.completed}
 				id={task.id}
 				category={category?.name}
-				onToggle={(id, next) => dispatch({ type: "UPDATE", id, completed: next })}
+				onToggle={handleOnToggle}
 				onDelete={(id) => dispatch({ type: "DELETE", id })}
 			/>
 		);
@@ -52,9 +60,13 @@ export function TaskList({ tasks, categories }: TaskListProps) {
 		<section className={styles.container}>
 			<HeaderSection title="Tarefas">
 				<Link href="/tasks/new">
-					<Button variant="default">Adicionar</Button>
+					<Button variant="default" icon="add">
+						Adicionar
+					</Button>
 				</Link>
 			</HeaderSection>
+
+			<TaskChart pendingCount={tasksPending.length} completedCount={tasksCompleted.length} />
 
 			<div className={styles.container_list}>
 				<h3>Pendentes ({tasksPending.length})</h3>

@@ -1,0 +1,40 @@
+.chart_card {
+	margin-bottom: 4px;
+	padding: 16px;
+	border: 1px solid var(--border);
+	border-radius: 12px;
+	background-color: #ffffff;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	max-width: 100%;
+}
+
+.chart_title {
+	margin-bottom: 2px;
+	font-size: 1.125rem;
+	font-weight: 600;
+	color: #1a202c;
+	width: 100%;
+	text-align: center;
+}
+
+.recharts_wrapper {
+	width: 100%;
+	height: 180px;
+	margin-bottom: 4px;
+	outline: none;
+}
+
+.chart_percentage {
+	font-size: 0.9rem;
+	font-weight: 700;
+	color: #171717;
+}
+
+.recharts_wrapper * {
+	outline: none;
+}
