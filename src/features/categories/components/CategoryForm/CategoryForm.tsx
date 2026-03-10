@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { createCategoryAction, updateCategoryAction } from "../../api/category-api";
+import { toast } from "sonner";
 
 type CategoryFormProps = {
 	category?: CategoryType;
@@ -28,13 +29,14 @@ export function CategoryForm({ category }: CategoryFormProps) {
 
 	const handleOnSubmit = (data: CategoryFormData) => {
 		startTransition(async () => {
-			if (category) {
-				await updateCategoryAction(category.id, data);
-			} else {
-				await createCategoryAction(data);
-			}
+			const result = category ? await updateCategoryAction(category.id, data) : await createCategoryAction(data);
 
-			router.push("/categories");
+			if (result.success) {
+				router.push("/categories");
+				toast.success(`Categoria ${category ? "atualizada" : "criada"} com sucesso!`);
+			} else {
+				toast.error(result.error);
+			}
 		});
 	};
 

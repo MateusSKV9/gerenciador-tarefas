@@ -4,7 +4,6 @@ import { env } from "@/env";
 import { CategorySchema, updateCategorySchema } from "../schemas/category-schema";
 import { TaskType } from "@/features/tasks";
 import { revalidatePath } from "next/cache";
-import { UpdateTaskSchema } from "@/features/tasks/schemas/task-schema";
 
 const API_URL = env.API_URL;
 

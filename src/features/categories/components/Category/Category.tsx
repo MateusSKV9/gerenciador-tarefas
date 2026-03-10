@@ -6,7 +6,6 @@ import { Button } from "@/components";
 import { useTransition } from "react";
 import { deleteCategoryAction } from "../../api/category-api";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
 type CategoryProps = {
 	id: string;
@@ -14,7 +13,6 @@ type CategoryProps = {
 };
 
 export function Category({ id, name }: CategoryProps) {
-	const router = useRouter();
 	const [isPending, startTransition] = useTransition();
 
 	const handleDelete = () => {
