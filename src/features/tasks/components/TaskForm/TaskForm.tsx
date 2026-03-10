@@ -27,7 +27,7 @@ export function TaskForm({ task, categories }: TaskFormProps) {
 		handleSubmit,
 	} = useForm<TaskFormData>({
 		resolver: zodResolver(TaskSchema),
-		defaultValues: { title: task?.title || "", category_id: task?.category_id || "" },
+		defaultValues: { title: task?.title || "", category_id: task?.category_id ?? "" },
 	});
 
 	const onSubmit = (data: TaskFormData) => {

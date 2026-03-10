@@ -10,13 +10,16 @@ import { toast } from "sonner";
 type CategoryProps = {
 	id: string;
 	name: string;
+	onDelete: (id: string) => void;
 };
 
-export function Category({ id, name }: CategoryProps) {
+export function Category({ id, name, onDelete }: CategoryProps) {
 	const [isPending, startTransition] = useTransition();
 
 	const handleDelete = () => {
 		startTransition(async () => {
+			onDelete(id);
+
 			const result = await deleteCategoryAction(id);
 
 			if (!result.success) toast.error(result.error);
@@ -29,10 +32,12 @@ export function Category({ id, name }: CategoryProps) {
 
 			<div className={styles.container_buttons}>
 				<Link href={`/categories/edit/${id}`}>
-					<Button variant="default">Editar</Button>
+					<Button disabled={isPending} variant="default">
+						Editar
+					</Button>
 				</Link>
-				<Button onClick={handleDelete} variant="danger">
-					{isPending ? "Deletando" : "Deletar"}
+				<Button disabled={isPending} onClick={handleDelete} variant="danger">
+					{isPending ? "Deletando..." : "Deletar"}
 				</Button>
 			</div>
 		</li>

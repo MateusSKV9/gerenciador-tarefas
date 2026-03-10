@@ -1,11 +1,13 @@
+.container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+}
+
 .list {
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
 	list-style: none;
-}
-
-.container {
-	max-width: 350px;
-	width: 100%;
 }
