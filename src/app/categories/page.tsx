@@ -3,7 +3,7 @@ import { CategoryList } from "@/features/categories";
 import { toast } from "sonner";
 
 const getCategories = async () => {
-	const response = await fetch(`${env.API_URL}/categories`);
+	const response = await fetch(`${env.API_URL}/categories`, { cache: "no-store" });
 	if (!response) toast.error("Erro ao buscar dados.");
 	return response.json();
 };
