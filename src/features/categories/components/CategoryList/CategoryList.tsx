@@ -18,7 +18,7 @@ export function CategoryList({ categories }: CategoryListProps) {
 
 	return (
 		<section className={styles.container}>
-			<HeaderSection title="Adicionando Categoria">
+			<HeaderSection title="Categorias">
 				<Link href="/categories/new">
 					<Button variant="default" icon="add">
 						Adicionar
