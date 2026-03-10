@@ -17,7 +17,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 	return (
 		<html lang="pt-br">
 			<body className={`${inter.className}`}>
-				<Toaster position="top-right" richColors />
+				<Toaster position="top-center" richColors />
 				<Header />
 				<main>{children}</main>
 				<Footer />

@@ -1,6 +1,5 @@
 "use client";
 
-import styles from "./TaskForm.module.css";
 import { Input } from "@/components/Input/Input";
 import { useForm } from "react-hook-form";
 import { createTaskAction, updateTaskAction } from "../../api/api-task";
@@ -44,7 +43,7 @@ export function TaskForm({ task, categories }: TaskFormProps) {
 	};
 
 	return (
-		<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+		<form className="form" onSubmit={handleSubmit(onSubmit)}>
 			<Input
 				id="title"
 				type="text"
@@ -60,7 +59,7 @@ export function TaskForm({ task, categories }: TaskFormProps) {
 				{...register("category_id")}
 				error={errors.category_id?.message}
 			/>
-			<Button variant="default" type="submit" disabled={isPending}>
+			<Button variant="default" icon="save" type="submit" disabled={isPending}>
 				{isPending ? "Salvando..." : "Salvar"}{" "}
 			</Button>
 		</form>

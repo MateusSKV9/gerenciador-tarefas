@@ -77,11 +77,11 @@ export function Task({ id, name, completed, category, onToggle, onDelete }: Task
 
 			<div className={styles.container_buttons}>
 				<Link href={`/tasks/edit/${id}`}>
-					<Button variant="default" disabled={isPending}>
+					<Button variant="default" icon="edit" disabled={isPending}>
 						{isPending && actionType === "updating" ? "Salvando..." : "Editar"}
 					</Button>
 				</Link>
-				<Button disabled={isPending} onClick={handleDelete} variant="danger">
+				<Button variant="danger" icon="delete" onClick={handleDelete} disabled={isPending}>
 					{isPending && actionType === "deleting" ? "Deletando..." : "Deletar"}
 				</Button>
 			</div>

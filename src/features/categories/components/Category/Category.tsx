@@ -32,11 +32,11 @@ export function Category({ id, name, onDelete }: CategoryProps) {
 
 			<div className={styles.container_buttons}>
 				<Link href={`/categories/edit/${id}`}>
-					<Button disabled={isPending} variant="default">
+					<Button variant="default" icon="edit" disabled={isPending}>
 						Editar
 					</Button>
 				</Link>
-				<Button disabled={isPending} onClick={handleDelete} variant="danger">
+				<Button variant="danger" icon="save" onClick={handleDelete} disabled={isPending}>
 					{isPending ? "Deletando..." : "Deletar"}
 				</Button>
 			</div>

@@ -41,7 +41,7 @@ export function CategoryForm({ category }: CategoryFormProps) {
 	};
 
 	return (
-		<form onSubmit={handleSubmit(handleOnSubmit)}>
+		<form className="form" onSubmit={handleSubmit(handleOnSubmit)}>
 			<Input
 				id="name"
 				text="Nome"
@@ -49,7 +49,7 @@ export function CategoryForm({ category }: CategoryFormProps) {
 				{...register("name")}
 				error={errors.name?.message}
 			/>
-			<Button type="submit" variant="default">
+			<Button variant="default" icon="save" type="submit">
 				{isPending ? "Salvando..." : "Salvar"}
 			</Button>
 		</form>

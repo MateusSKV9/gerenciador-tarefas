@@ -6,6 +6,7 @@
 	--secondary: rgb(241, 245, 249);
 	--danger: rgb(239, 68, 68);
 	--border: rgb(226, 232, 240);
+	--gray: rgb(223, 223, 223);
 }
 
 * {
@@ -30,10 +31,9 @@ body {
 main {
 	flex-grow: 1;
 	width: 100%;
-	max-width: 800px;
+	max-width: 700px;
 	padding: 24px;
-
-	margin: 32px 0px;
+	margin: 12px 0px;
 
 	display: flex;
 	justify-content: center;
@@ -57,8 +57,8 @@ input {
 	width: 48px;
 	height: 48px;
 	border: 5px solid black;
-	border-color: transparent black black black;
-	animation: rotation 1s ease infinite;
+	border-color: rgb(46, 46, 46) var(--gray) var(--gray) var(--gray);
+	animation: rotation 0.75s ease infinite;
 	border-radius: 50%;
 }
 
@@ -70,4 +70,17 @@ input {
 	100% {
 		transform: rotate(360deg);
 	}
+}
+
+.section__middle {
+	width: 450px;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
 }

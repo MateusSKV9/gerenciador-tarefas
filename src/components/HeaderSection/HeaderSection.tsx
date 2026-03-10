@@ -9,7 +9,7 @@ type HeaderSectionProps = {
 export function HeaderSection({ title, children }: HeaderSectionProps) {
 	return (
 		<div className={styles.wrapper}>
-			<h1 className="text-3xl font-bold">{title}</h1>
+			<h1 className={styles.title}>{title}</h1>
 			<div>{children}</div>
 		</div>
 	);

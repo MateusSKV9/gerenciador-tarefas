@@ -11,7 +11,7 @@ export default function Error({ error, reset }: ErrorProps) {
 			<p>{error.message}</p>
 			<p>O servidor de tarefas pode estar fora do ar.</p>
 
-			<Button variant="default" onClick={() => reset()}>
+			<Button variant="default" icon="reload" onClick={() => reset()}>
 				Tentar novamente
 			</Button>
 		</div>
