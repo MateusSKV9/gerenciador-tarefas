@@ -5,12 +5,11 @@
 	transition: all 0.15s ease;
 	cursor: pointer;
 	font-size: 0.9rem;
-	
 
 	display: flex;
 	align-items: center;
 	justify-content: center;
-  gap: 4px;
+	gap: 4px;
 
 	&:hover {
 		transform: translateY(-2px);
@@ -31,4 +30,10 @@
 .danger {
 	background-color: var(--danger);
 	color: var(--white);
+}
+
+@media screen and (max-width: 600px) {
+	.text {
+		display: none;
+	}
 }

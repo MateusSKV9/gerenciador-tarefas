@@ -36,7 +36,7 @@ export function Category({ id, name, onDelete }: CategoryProps) {
 						Editar
 					</Button>
 				</Link>
-				<Button variant="danger" icon="save" onClick={handleDelete} disabled={isPending}>
+				<Button variant="danger" icon="delete" onClick={handleDelete} disabled={isPending}>
 					{isPending ? "Deletando..." : "Deletar"}
 				</Button>
 			</div>

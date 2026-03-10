@@ -123,7 +123,7 @@ export function Button({ children, variant, icon, ...props }: ButtonProps) {
 	return (
 		<button className={`${styles.button} ${styles[variant]}`} {...props}>
 			{icon && ICONS[icon]}
-			{children}
+			<span className={styles.text}>{children}</span>
 		</button>
 	);
 }

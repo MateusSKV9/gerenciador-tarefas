@@ -7,9 +7,8 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-
 	border: 1px solid var(--border);
-
+  gap: 8px;
 	border-left: 5px solid var(--foreground);
 }
 
@@ -38,6 +37,10 @@
 .input,
 .label {
 	cursor: pointer;
+}
+
+.label {
+	word-break: break-all;
 }
 
 .container_buttons {

@@ -19,6 +19,9 @@
 .logo {
 	font-weight: bold;
 	font-size: 1.3rem;
+	display: flex;
+	align-items: center;
+	gap: 8px;
 }
 
 .list {
@@ -38,4 +41,14 @@
 		color: var(--foreground);
 		border-radius: 4px;
 	}
+}
+
+@media screen and (max-width: 600px) {
+	.logo_text {
+		display: none;
+	}
+  
+  .list {
+    gap: 12px;
+  }
 }
