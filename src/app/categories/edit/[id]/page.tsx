@@ -1,5 +1,7 @@
+import { Button, HeaderSection } from "@/components";
 import { env } from "@/env";
 import { CategoryForm } from "@/features/categories/components/CategoryForm/CategoryForm";
+import Link from "next/link";
 import { toast } from "sonner";
 
 type EditCategoryProps = {
@@ -16,5 +18,16 @@ export default async function EditCategory({ params }: EditCategoryProps) {
 	const { id } = await params;
 	const category = await getCategory(id);
 
-  return <CategoryForm category={category} />
+	return (
+		<section className="section__middle">
+			<HeaderSection title="Editando Categoria">
+				<Link href="/categories">
+					<Button variant="default" icon="back">
+						Voltar
+					</Button>
+				</Link>
+			</HeaderSection>
+			<CategoryForm category={category} />
+		</section>
+	);
 }

@@ -1,6 +1,8 @@
+import { Button, HeaderSection } from "@/components";
 import { env } from "@/env";
 import { TaskType } from "@/features/tasks";
 import { TaskForm } from "@/features/tasks/components/TaskForm/TaskForm";
+import Link from "next/link";
 import { toast } from "sonner";
 
 async function getTask(id: string): Promise<TaskType> {
@@ -25,10 +27,16 @@ export default async function EditTaskPage({ params }: EditTaskPageProps) {
 	if (!task) return <p>Tarefa não encontrada.</p>;
 
 	return (
-		<section>
-			<h1>Editando produto </h1>
+		<>
+			<HeaderSection title="Editando Tarefa">
+				<Link href="/">
+					<Button variant="default" icon="back">
+						Voltar
+					</Button>
+				</Link>
+			</HeaderSection>
 
 			<TaskForm task={task} categories={categories} />
-		</section>
+		</>
 	);
 }
