@@ -9,6 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
 	title: "Gerenciador de Tarefas",
 	description: "Gerenciador de tarefas moderno e intuitivo.",
+	icons: { icon: "/favicon.ico" },
 };
 
 type RootLayoutProps = Readonly<{ children: React.ReactNode }>;
