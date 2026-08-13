@@ -1,6 +1,6 @@
+import Link from "next/link";
 import { Button, HeaderSection } from "@/components";
 import { CategoryForm } from "@/features/categories/components/CategoryForm/CategoryForm";
-import Link from "next/link";
 
 export default function NewCategory() {
 	return (

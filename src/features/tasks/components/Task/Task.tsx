@@ -1,12 +1,12 @@
 "use client";
 
-import styles from "./Task.module.css";
-import { Button } from "@/components";
-import { deleteTaskAction, updateTaskAction } from "../../api/api-task";
+import Link from "next/link";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
-import Link from "next/link";
+import { Button } from "@/components";
 import { CategoryBadge } from "@/features/categories/components/CategoryBadge/CategoryBadge";
+import { deleteTaskAction, updateTaskAction } from "../../api/api-task";
+import styles from "./Task.module.css";
 
 type TaskProps = {
 	id: string;

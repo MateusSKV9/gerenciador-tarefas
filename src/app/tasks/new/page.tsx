@@ -1,9 +1,9 @@
-import { Button, HeaderSection } from "@/components";
+import Link from "next/link";
 import { env } from "@/env";
+import { toast } from "sonner";
+import { Button, HeaderSection } from "@/components";
 import { CategoryType } from "@/features/categories/schemas/category-schema";
 import { TaskForm } from "@/features/tasks/components/TaskForm/TaskForm";
-import Link from "next/link";
-import { toast } from "sonner";
 
 const getCategories = async (): Promise<CategoryType[]> => {
 	const response = await fetch(`${env.API_URL}/categories`, { cache: "no-store" });

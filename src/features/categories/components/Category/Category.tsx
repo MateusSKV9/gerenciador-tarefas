@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import styles from "./Category.module.css";
-import { Button } from "@/components";
 import { useTransition } from "react";
-import { deleteCategoryAction } from "../../api/category-api";
 import { toast } from "sonner";
+import { Button } from "@/components";
+import { deleteCategoryAction } from "../../api/category-api";
+import styles from "./Category.module.css";
 
 type CategoryProps = {
 	id: string;
@@ -36,6 +36,7 @@ export function Category({ id, name, onDelete }: CategoryProps) {
 						Editar
 					</Button>
 				</Link>
+
 				<Button variant="danger" icon="delete" onClick={handleDelete} disabled={isPending}>
 					{isPending ? "Deletando..." : "Deletar"}
 				</Button>

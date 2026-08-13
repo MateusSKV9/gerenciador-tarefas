@@ -1,8 +1,8 @@
-import { Button, HeaderSection } from "@/components";
-import { env } from "@/env";
-import { CategoryForm } from "@/features/categories/components/CategoryForm/CategoryForm";
 import Link from "next/link";
+import { env } from "@/env";
 import { toast } from "sonner";
+import { Button, HeaderSection } from "@/components";
+import { CategoryForm } from "@/features/categories/components/CategoryForm/CategoryForm";
 
 type EditCategoryProps = {
 	params: Promise<{ id: string }>;

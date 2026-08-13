@@ -1,5 +1,4 @@
 import styles from "./HeaderSection.module.css";
-import React from "react";
 
 type HeaderSectionProps = {
 	title: string;

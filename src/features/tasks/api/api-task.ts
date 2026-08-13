@@ -1,7 +1,7 @@
 "use server";
+import { env } from "@/env";
 import { revalidatePath } from "next/cache";
 import { TaskSchema, TaskType, UpdateTaskSchema } from "../schemas/task-schema";
-import { env } from "@/env";
 
 const API_URL = env.API_URL;
 
@@ -41,7 +41,7 @@ export async function deleteTaskAction(id: string): Promise<ActionResponse> {
 
 		if (!response.ok) {
 			const dataError = await response.json();
-			return { success: false, error: dataError.error || "Erro ao deletar terefa." };
+			return { success: false, error: dataError.error || "Erro ao deletar tarefa." };
 		}
 
 		revalidatePath("/");

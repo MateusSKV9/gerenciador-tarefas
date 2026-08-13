@@ -1,15 +1,15 @@
 "use client";
 
-import styles from "./TaskList.module.css";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useOptimistic } from "react";
+import { Button } from "@/components";
+import { HeaderSection } from "@/components/HeaderSection/HeaderSection";
+import { CategoryType } from "@/features/categories/schemas/category-schema";
 import { Task } from "../Task/Task";
 import { TaskType } from "../../schemas/task-schema";
-import { HeaderSection } from "@/components/HeaderSection/HeaderSection";
-import { Button } from "@/components";
-import Link from "next/link";
-import { CategoryType } from "@/features/categories/schemas/category-schema";
-import { useOptimistic } from "react";
-import { useRouter } from "next/navigation";
 import { TaskChart } from "../TaskChart/TaskChart";
+import styles from "./TaskList.module.css";
 
 type TaskListProps = {
 	tasks: TaskType[];

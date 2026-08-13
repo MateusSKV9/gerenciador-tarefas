@@ -1,6 +1,6 @@
 import { env } from "@/env";
-import { CategoryList } from "@/features/categories";
 import { toast } from "sonner";
+import { CategoryList } from "@/features/categories";
 
 const getCategories = async () => {
 	const response = await fetch(`${env.API_URL}/categories`, { cache: "no-store" });

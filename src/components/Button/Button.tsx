@@ -1,5 +1,5 @@
-import styles from "./Button.module.css";
 import { ComponentProps } from "react";
+import styles from "./Button.module.css";
 
 const ICONS = {
 	back: (

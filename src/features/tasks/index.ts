@@ -1,8 +1,8 @@
-// components
+//—————————— COMPONENTS
 export { TaskList } from "./components/TaskList/TaskList";
 
-// api
+//—————————— API
 export { createTaskAction, deleteTaskAction, updateTaskAction } from "./api/api-task";
 
-// schema
+//—————————— SCHEMA
 export type { TaskType } from "./schemas/task-schema";

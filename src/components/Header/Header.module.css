@@ -43,12 +43,12 @@
 	}
 }
 
-@media screen and (max-width: 600px) {
+@media (max-width: 600px) {
 	.logo_text {
 		display: none;
 	}
-  
-  .list {
-    gap: 12px;
-  }
+
+	.list {
+		gap: 12px;
+	}
 }

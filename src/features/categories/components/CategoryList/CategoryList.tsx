@@ -1,18 +1,18 @@
 "use client";
 
-import styles from "./CategoryList.module.css";
-import { CategoryType } from "../../schemas/category-schema";
-import { Category } from "../Category/Category";
-import { Button, HeaderSection } from "@/components";
 import Link from "next/link";
 import { useOptimistic } from "react";
+import { Button, HeaderSection } from "@/components";
+import { CategoryType } from "../../schemas/category-schema";
+import { Category } from "../Category/Category";
+import styles from "./CategoryList.module.css";
 
 type CategoryListProps = {
 	categories: CategoryType[];
 };
 
 export function CategoryList({ categories }: CategoryListProps) {
-	const [optimisticCategories, removeOptmisticCategory] = useOptimistic(categories, (state, categoryId: string) => {
+	const [optimisticCategories, removeOptimisticCategory] = useOptimistic(categories, (state, categoryId: string) => {
 		return state.filter((c) => c.id !== categoryId);
 	});
 
@@ -32,7 +32,7 @@ export function CategoryList({ categories }: CategoryListProps) {
 						key={category.id}
 						id={category.id}
 						name={category.name}
-						onDelete={(id: string) => removeOptmisticCategory(id)}
+						onDelete={(id: string) => removeOptimisticCategory(id)}
 					/>
 				))}
 			</ul>
