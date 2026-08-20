@@ -3,12 +3,11 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useOptimistic } from "react";
-import { Button } from "@/components";
-import { HeaderSection } from "@/components/HeaderSection/HeaderSection";
-import { CategoryType } from "@/features/categories/schemas/category-schema";
+import { Button, HeaderSection } from "@/components";
 import { Task } from "../Task/Task";
 import { TaskType } from "../../schemas/task-schema";
 import { TaskChart } from "../TaskChart/TaskChart";
+import { CategoryType } from "@/features/categories";
 import styles from "./TaskList.module.css";
 
 type TaskListProps = {

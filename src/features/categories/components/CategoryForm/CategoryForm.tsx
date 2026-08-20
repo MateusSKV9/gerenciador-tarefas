@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input } from "@/components";
 import { CategoryFormData, CategorySchema, CategoryType } from "../../schemas/category-schema";
-import { createCategoryAction, updateCategoryAction } from "../../api/category-api";
+import { createCategoryAction, updateCategoryAction } from "../../api/category-actions";
 
 type CategoryFormProps = {
 	category?: CategoryType;
@@ -15,6 +15,7 @@ type CategoryFormProps = {
 
 export function CategoryForm({ category }: CategoryFormProps) {
 	const router = useRouter();
+	const [isPending, startTransition] = useTransition();
 
 	const {
 		register,
@@ -24,8 +25,6 @@ export function CategoryForm({ category }: CategoryFormProps) {
 		resolver: zodResolver(CategorySchema),
 		defaultValues: { name: category ? category.name : "" },
 	});
-
-	const [isPending, startTransition] = useTransition();
 
 	const handleOnSubmit = (data: CategoryFormData) => {
 		startTransition(async () => {

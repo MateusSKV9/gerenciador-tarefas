@@ -1,21 +1,8 @@
-import { Button, HeaderSection } from "@/components";
-import { env } from "@/env";
-import { TaskType } from "@/features/tasks";
-import { TaskForm } from "@/features/tasks/components/TaskForm/TaskForm";
 import Link from "next/link";
-import { toast } from "sonner";
-
-async function getTask(id: string): Promise<TaskType> {
-	const response = await fetch(`${env.API_URL}/tasks/${id}`, { cache: "no-store" });
-	if (!response.ok) throw new Error("Erro ao buscar tarefa");
-	return response.json();
-}
-
-const getCategories = async () => {
-	const response = await fetch(`${env.API_URL}/categories`);
-	if (!response) toast.error("Erro ao buscar dados.");
-	return response.json();
-};
+import { Button, HeaderSection } from "@/components";
+import { TaskForm } from "@/features/tasks/components/TaskForm/TaskForm";
+import { getTask } from "@/features/tasks";
+import { getCategories } from "@/features/categories";
 
 type EditTaskPageProps = { params: Promise<{ id: string }> };
 

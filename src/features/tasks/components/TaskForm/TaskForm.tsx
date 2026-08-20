@@ -5,11 +5,10 @@ import { useTransition } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { Input } from "@/components/Input/Input";
-import { Button, Select } from "@/components";
-import { CategoryType } from "@/features/categories/schemas/category-schema";
+import { Button, Input, Select } from "@/components";
 import { TaskFormData, TaskSchema, TaskType } from "../../schemas/task-schema";
-import { createTaskAction, updateTaskAction } from "../../api/api-task";
+import { createTaskAction, updateTaskAction } from "../../api/task-actions";
+import { CategoryType } from "@/features/categories";
 
 type TaskFormProps = {
 	task?: TaskType;

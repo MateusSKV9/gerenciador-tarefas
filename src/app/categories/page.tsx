@@ -1,12 +1,4 @@
-import { env } from "@/env";
-import { toast } from "sonner";
-import { CategoryList } from "@/features/categories";
-
-const getCategories = async () => {
-	const response = await fetch(`${env.API_URL}/categories`, { cache: "no-store" });
-	if (!response) toast.error("Erro ao buscar dados.");
-	return response.json();
-};
+import { CategoryList, getCategories } from "@/features/categories";
 
 export default async function CategoriesPage() {
 	const categories = await getCategories();

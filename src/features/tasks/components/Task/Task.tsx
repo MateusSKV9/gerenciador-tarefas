@@ -5,7 +5,7 @@ import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components";
 import { CategoryBadge } from "@/features/categories/components/CategoryBadge/CategoryBadge";
-import { deleteTaskAction, updateTaskAction } from "../../api/api-task";
+import { deleteTaskAction, updateTaskAction } from "../../api/task-actions";
 import styles from "./Task.module.css";
 
 type TaskProps = {

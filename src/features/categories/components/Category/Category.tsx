@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useTransition } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components";
-import { deleteCategoryAction } from "../../api/category-api";
+import { deleteCategoryAction } from "../../api/category-actions";
 import styles from "./Category.module.css";
 
 type CategoryProps = {

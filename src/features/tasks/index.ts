@@ -1,8 +1,12 @@
-//—————————— COMPONENTS
+//—————————— COMPONENTS ——————————
 export { TaskList } from "./components/TaskList/TaskList";
 
-//—————————— API
-export { createTaskAction, deleteTaskAction, updateTaskAction } from "./api/api-task";
+//—————————— CONSTANTS ——————————
+export * from ".//"
 
-//—————————— SCHEMA
-export type { TaskType } from "./schemas/task-schema";
+//—————————— API ——————————
+export { getTasks, getTask } from "./api/task-api";
+export { createTaskAction, deleteTaskAction, updateTaskAction } from "./api/task-actions";
+
+//—————————— SCHEMA ——————————
+export * from "./schemas/task-schema";

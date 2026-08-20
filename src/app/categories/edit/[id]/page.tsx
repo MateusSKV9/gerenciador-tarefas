@@ -1,17 +1,9 @@
 import Link from "next/link";
-import { env } from "@/env";
-import { toast } from "sonner";
 import { Button, HeaderSection } from "@/components";
-import { CategoryForm } from "@/features/categories/components/CategoryForm/CategoryForm";
+import { CategoryForm, getCategory } from "@/features/categories";
 
 type EditCategoryProps = {
 	params: Promise<{ id: string }>;
-};
-
-const getCategory = async (id: string) => {
-	const response = await fetch(`${env.API_URL}/categories/${id}`, { cache: "no-cache" });
-	if (!response.ok) toast.error("Erro ao buscar categoria");
-	return response.json();
 };
 
 export default async function EditCategory({ params }: EditCategoryProps) {
@@ -27,6 +19,7 @@ export default async function EditCategory({ params }: EditCategoryProps) {
 					</Button>
 				</Link>
 			</HeaderSection>
+
 			<CategoryForm category={category} />
 		</section>
 	);

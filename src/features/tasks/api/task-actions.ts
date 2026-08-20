@@ -1,9 +1,8 @@
 "use server";
-import { env } from "@/env";
+
 import { revalidatePath } from "next/cache";
 import { TaskSchema, TaskType, UpdateTaskSchema } from "../schemas/task-schema";
-
-const API_URL = env.API_URL;
+import { TASKS_URL } from "../constants/task-constants";
 
 type ActionResponse = {
 	success: boolean;
@@ -15,7 +14,7 @@ export async function createTaskAction(data: unknown): Promise<ActionResponse> {
 	try {
 		const parsed = TaskSchema.parse(data);
 
-		const response = await fetch(`${API_URL}/tasks`, {
+		const response = await fetch(TASKS_URL, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(parsed),
@@ -25,8 +24,8 @@ export async function createTaskAction(data: unknown): Promise<ActionResponse> {
 			const errorData = await response.json();
 			return { success: false, error: errorData.error || "Erro ao criar a tarefa." };
 		}
-		const task = await response.json();
 
+		const task = await response.json();
 		revalidatePath("/");
 		return { success: true, data: task };
 	} catch (err) {
@@ -37,7 +36,7 @@ export async function createTaskAction(data: unknown): Promise<ActionResponse> {
 
 export async function deleteTaskAction(id: string): Promise<ActionResponse> {
 	try {
-		const response = await fetch(`${API_URL}/tasks/${id}`, { method: "DELETE" });
+		const response = await fetch(`${TASKS_URL}/${id}`, { method: "DELETE" });
 
 		if (!response.ok) {
 			const dataError = await response.json();
@@ -56,7 +55,7 @@ export async function updateTaskAction(id: string, data: unknown): Promise<Actio
 	try {
 		const dataToUpdate = UpdateTaskSchema.parse(data);
 
-		const response = await fetch(`${env.API_URL}/tasks/${id}`, {
+		const response = await fetch(`${TASKS_URL}/${id}`, {
 			method: "PATCH",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(dataToUpdate),
@@ -66,8 +65,8 @@ export async function updateTaskAction(id: string, data: unknown): Promise<Actio
 			const dataError = await response.json();
 			return { success: false, error: dataError.error || "Erro ao atualizar tarefa." };
 		}
-		const updatedTask = await response.json();
 
+		const updatedTask = await response.json();
 		revalidatePath("/");
 		revalidatePath(`/tasks/edit/${id}`);
 		return { success: true, data: updatedTask };
